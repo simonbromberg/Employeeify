@@ -13,6 +13,7 @@ class EmployeeListViewController: UIViewController, UITableViewDelegate {
     private var employees = [Employee]()
 
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var errorLabel: UILabel!
 
     private var dataSource: UITableViewDiffableDataSource<Section, Employee>!
 
@@ -53,6 +54,15 @@ class EmployeeListViewController: UIViewController, UITableViewDelegate {
             
             DispatchQueue.main.async {
                 strongSelf.reloadTableViewData()
+
+                var errorMessage: String?
+                if strongSelf.employees.isEmpty {
+                    errorMessage = error == nil ? NSLocalizedString("No Employees!", comment: "Employee list, empty data message") : NSLocalizedString("Error Loading!", comment: "Employee list, error message")
+                }
+
+                strongSelf.errorLabel.text = errorMessage
+                strongSelf.errorLabel.isHidden = errorMessage == nil
+
                 completion?()
             }
         }
@@ -70,10 +80,10 @@ class EmployeeListViewController: UIViewController, UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let employee = employees[indexPath.row]
         if let urlString = employee.photoURLSmall {
-            getImage(for: urlString) { [weak self] image in
+            getImage(for: urlString) { image in
                 if let image = image,
-                    let cell = self?.tableView.cellForRow(at: indexPath) as? EmployeeCell {
-                    cell.profileImageView.image = image
+                    indexPath == tableView.indexPath(for: cell) {
+                    (cell as? EmployeeCell)?.profileImageView.image = image
                 }
             }
         }
