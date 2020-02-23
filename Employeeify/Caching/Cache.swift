@@ -6,6 +6,7 @@
 
 import Foundation
 
+/// NSCache based memory storage for more efficient loading of data at runtime
 public final class Cache<Key: Hashable, Value> {
     public typealias DateProvider = () -> Date
 

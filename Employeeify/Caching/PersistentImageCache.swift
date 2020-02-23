@@ -8,6 +8,9 @@
 
 import Foundation
 
+// TODO: clear old images from cache
+
+/// Longer term image caching which stores images to documents directory
 class PersistentImageCache {
     func getImageData(forRemoteURL url: URL) -> Data? {
         let fileURL = fileURLForRemoteURL(url)

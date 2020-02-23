@@ -14,10 +14,6 @@ enum DataProviderError: Error {
     case decodingFailure(Error?)
 }
 
-struct Endpoint {
-    static let employees = "employees.json"    
-}
-
 /// Test data for SwifUI previews
 let employeesPreviewData: [Employee] = {
     guard let url = Bundle.main.url(forResource: "employees", withExtension: "json") else {
@@ -26,7 +22,7 @@ let employeesPreviewData: [Employee] = {
 
     let data = try? Data(contentsOf: url)
     return DataProvider.shared.parseEmployeeData(data, error: nil).employees ?? []
-}()
+}() // FIXME: where do you put this?
 
 struct DataProvider {
     static var shared: EmployeeDataProvider = ApiManager()
@@ -56,7 +52,11 @@ extension EmployeeDataProvider {
 }
 
 class ApiManager: EmployeeDataProvider {
-    var baseURL: String { "https://s3.amazonaws.com/sq-mobile-interview/" } // FIXME: testability?
+    struct Endpoint {
+        static let employees = "employees.json"
+    }
+
+    var baseURL: String { "https://s3.amazonaws.com/sq-mobile-interview/" }
 
     private let defaultSession = URLSession(configuration: .default)
 

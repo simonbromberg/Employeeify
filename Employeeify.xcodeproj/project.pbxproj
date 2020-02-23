@@ -70,6 +70,7 @@
 		D47DB610240255C2001271FD /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		D47DB61324025B6A001271FD /* EmployeeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeDetailView.swift; sourceTree = "<group>"; };
 		D47DB61524025E55001271FD /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
+		D498C84924033E0D002CC886 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +101,7 @@
 		D47DB5C323FF9A2A001271FD = {
 			isa = PBXGroup;
 			children = (
+				D498C84924033E0D002CC886 /* README.md */,
 				D47DB5CE23FF9A2B001271FD /* Employeeify */,
 				D47DB5E523FF9A2B001271FD /* EmployeeifyTests */,
 				D47DB5F023FF9A2B001271FD /* EmployeeifyUITests */,
@@ -122,16 +124,11 @@
 			children = (
 				D47DB5CF23FF9A2B001271FD /* AppDelegate.swift */,
 				D47DB5D123FF9A2B001271FD /* SceneDelegate.swift */,
-				D47DB5D523FF9A2B001271FD /* Main.storyboard */,
-				D47DB5D323FF9A2B001271FD /* EmployeeListViewController.swift */,
-				D47DB60A24023FC8001271FD /* EmployeeCell.swift */,
-				D47DB5FF23FF9AA1001271FD /* Employee.swift */,
+				D498C84B24033ECC002CC886 /* User Interface */,
 				D47DB60123FF9D35001271FD /* ApiManager.swift */,
-				D47DB60C24025355001271FD /* PersistentImageCache.swift */,
-				D47DB610240255C2001271FD /* Cache.swift */,
-				D47DB60523FFA67F001271FD /* employees.json */,
-				D47DB5D823FF9A2B001271FD /* Assets.xcassets */,
-				D47DB61724025E5F001271FD /* Detail */,
+				D498C84E24033F18002CC886 /* Model */,
+				D498C84C24033ED3002CC886 /* Caching */,
+				D498C84A24033EC2002CC886 /* Resources */,
 				D47DB5DA23FF9A2B001271FD /* LaunchScreen.storyboard */,
 				D47DB5DD23FF9A2B001271FD /* Info.plist */,
 			);
@@ -166,13 +163,58 @@
 			path = "Test Data";
 			sourceTree = "<group>";
 		};
-		D47DB61724025E5F001271FD /* Detail */ = {
+		D47DB61724025E5F001271FD /* Employee Detail */ = {
 			isa = PBXGroup;
 			children = (
 				D47DB61324025B6A001271FD /* EmployeeDetailView.swift */,
 				D47DB61524025E55001271FD /* CircleImage.swift */,
 			);
-			path = Detail;
+			path = "Employee Detail";
+			sourceTree = "<group>";
+		};
+		D498C84A24033EC2002CC886 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D47DB60523FFA67F001271FD /* employees.json */,
+				D47DB5D823FF9A2B001271FD /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		D498C84B24033ECC002CC886 /* User Interface */ = {
+			isa = PBXGroup;
+			children = (
+				D47DB5D523FF9A2B001271FD /* Main.storyboard */,
+				D498C84D24033F09002CC886 /* Employee List */,
+				D47DB61724025E5F001271FD /* Employee Detail */,
+			);
+			path = "User Interface";
+			sourceTree = "<group>";
+		};
+		D498C84C24033ED3002CC886 /* Caching */ = {
+			isa = PBXGroup;
+			children = (
+				D47DB60C24025355001271FD /* PersistentImageCache.swift */,
+				D47DB610240255C2001271FD /* Cache.swift */,
+			);
+			path = Caching;
+			sourceTree = "<group>";
+		};
+		D498C84D24033F09002CC886 /* Employee List */ = {
+			isa = PBXGroup;
+			children = (
+				D47DB5D323FF9A2B001271FD /* EmployeeListViewController.swift */,
+				D47DB60A24023FC8001271FD /* EmployeeCell.swift */,
+			);
+			path = "Employee List";
+			sourceTree = "<group>";
+		};
+		D498C84E24033F18002CC886 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D47DB5FF23FF9AA1001271FD /* Employee.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

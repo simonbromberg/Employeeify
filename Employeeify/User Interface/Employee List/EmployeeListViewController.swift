@@ -70,21 +70,28 @@ class EmployeeListViewController: UIViewController, UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let employee = employees[indexPath.row]
         if let urlString = employee.photoURLSmall {
-            if let image = imageCache[urlString] {
-                (cell as? EmployeeCell)?.profileImageView.image = image
-                return
+            getImage(for: urlString) { [weak self] image in
+                if let image = image,
+                    let cell = self?.tableView.cellForRow(at: indexPath) as? EmployeeCell {
+                    cell.profileImageView.image = image
+                }
             }
+        }
+    }
 
-            // Image not stored in memory cache
-            if let url = URL(string: urlString) {
-                DataProvider.shared.getImageData(with: url) { (imageData, error) in
-                    DispatchQueue.main.async {
-                        if let imageData = imageData,
-                            let image = UIImage(data: imageData),
-                            let cell = tableView.cellForRow(at: indexPath) as? EmployeeCell {
-                            cell.profileImageView.image = image
-                            self.imageCache[urlString] = image
-                        }
+    private func getImage(for urlString: String, completion: @escaping (_ image: UIImage?) -> Void) {
+        if let image = imageCache[urlString] {
+            return completion(image)
+        }
+
+        // Image not stored in local memory cache
+        if let url = URL(string: urlString) {
+            DataProvider.shared.getImageData(with: url) { (imageData, error) in
+                DispatchQueue.main.async {
+                    if let imageData = imageData,
+                        let image = UIImage(data: imageData) {
+                        self.imageCache[urlString] = image
+                        completion(image)
                     }
                 }
             }
