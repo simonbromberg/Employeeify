@@ -50,7 +50,7 @@ class EmployeeListViewController: UIViewController, UITableViewDelegate {
         DataProvider.shared.getEmployees { [weak self] (employees, error) in
             guard let strongSelf = self else { return }
 
-            strongSelf.employees = (employees ?? []).sorted(by: { $0.fullName < $1.fullName })
+            strongSelf.employees = (employees ?? []).sorted(by: strongSelf.activeSortingMethod)
             
             DispatchQueue.main.async {
                 strongSelf.reloadTableViewData()
@@ -139,5 +139,58 @@ class EmployeeListViewController: UIViewController, UITableViewDelegate {
             self?.refreshControl.endRefreshing()
         }
     }
+
+    // MARK: - Sort
+
+    enum Sort: CaseIterable {
+        case name
+        case team
+
+        var title: String {
+            switch self {
+            case .name:
+                return NSLocalizedString("By Name", comment: "Sort button title")
+            case .team:
+                return NSLocalizedString("By Team", comment: "Sort button title")
+            }
+        }
+    }
+
+    @IBAction func sortTapped(_ sender: UIBarButtonItem) {
+        let actionSheet = UIAlertController(title: NSLocalizedString("Sort", comment: "Action sheet title"), message: NSLocalizedString("Select an option", comment: "Action sheet message"), preferredStyle: .actionSheet)
+
+        for option in Sort.allCases {
+            actionSheet.addAction(UIAlertAction(title: option.title, style: .default, handler: { _ in
+                self.updateSort(option)
+            }))
+        }
+
+        actionSheet.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: "Action sheet button"), style: .cancel, handler: nil))
+
+        actionSheet.popoverPresentationController?.barButtonItem = sender
+
+        present(actionSheet, animated: true)
+    }
+
+    private func updateSort(_ sort: Sort) {
+        activeSortingOption = sort
+        employees.sort(by: activeSortingMethod)
+        reloadTableViewData()
+    }
+
+    private var activeSortingOption = Sort.name
+
+    typealias EmployeeSorter = (_ a: Employee, _ b: Employee) -> Bool
+    private var activeSortingMethod: EmployeeSorter {
+        switch activeSortingOption {
+        case .name:
+            return sortByName
+        case .team:
+            return sortByTeam
+        }
+    }
+
+    private var sortByName: EmployeeSorter = { $0.fullName < $1.fullName }
+    private var sortByTeam: EmployeeSorter = { $0.team < $1.team }
 }
 
