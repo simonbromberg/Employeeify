@@ -55,9 +55,9 @@ struct EmployeeDetailView: View {
                 employee.biography.map { Text($0) }
                     .padding()
             }
-
             .navigationBarTitle(employee.fullName)
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
