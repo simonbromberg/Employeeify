@@ -50,7 +50,7 @@ class EmployeeListViewController: UIViewController, UITableViewDelegate {
         DataProvider.shared.getEmployees { [weak self] (employees, error) in
             guard let strongSelf = self else { return }
 
-            strongSelf.employees = (employees ?? []).sorted(by: strongSelf.activeSortingMethod)
+            strongSelf.employees = (employees ?? []).sorted(by: strongSelf.activeSortingKeyPath)
             
             DispatchQueue.main.async {
                 strongSelf.reloadTableViewData()
@@ -140,15 +140,15 @@ class EmployeeListViewController: UIViewController, UITableViewDelegate {
         }
     }
 
-    // MARK: - Sort
+    // MARK: - Sorting
 
-    enum Sort: CaseIterable {
-        case name
+    enum SortingOption: CaseIterable {
+        case fullName
         case team
 
         var title: String {
             switch self {
-            case .name:
+            case .fullName:
                 return NSLocalizedString("By Name", comment: "Sort button title")
             case .team:
                 return NSLocalizedString("By Team", comment: "Sort button title")
@@ -159,7 +159,7 @@ class EmployeeListViewController: UIViewController, UITableViewDelegate {
     @IBAction func sortTapped(_ sender: UIBarButtonItem) {
         let actionSheet = UIAlertController(title: NSLocalizedString("Sort", comment: "Action sheet title"), message: NSLocalizedString("Select an option", comment: "Action sheet message"), preferredStyle: .actionSheet)
 
-        for option in Sort.allCases {
+        for option in SortingOption.allCases {
             actionSheet.addAction(UIAlertAction(title: option.title, style: .default, handler: { _ in
                 self.updateSort(option)
             }))
@@ -172,25 +172,29 @@ class EmployeeListViewController: UIViewController, UITableViewDelegate {
         present(actionSheet, animated: true)
     }
 
-    private func updateSort(_ sort: Sort) {
+    private func updateSort(_ sort: SortingOption) {
         activeSortingOption = sort
-        employees.sort(by: activeSortingMethod)
+        employees = employees.sorted(by: activeSortingKeyPath)
         reloadTableViewData()
     }
 
-    private var activeSortingOption = Sort.name
+    private var activeSortingOption = SortingOption.fullName
 
-    typealias EmployeeSorter = (_ a: Employee, _ b: Employee) -> Bool
-    private var activeSortingMethod: EmployeeSorter {
+    private var activeSortingKeyPath: KeyPath<Employee, String> {
         switch activeSortingOption {
-        case .name:
-            return sortByName
+        case .fullName:
+            return \.fullName
         case .team:
-            return sortByTeam
+            return \.team
         }
     }
-
-    private var sortByName: EmployeeSorter = { $0.fullName < $1.fullName }
-    private var sortByTeam: EmployeeSorter = { $0.team < $1.team }
 }
 
+extension Sequence {
+    /// Based on https://www.swiftbysundell.com/articles/the-power-of-key-paths-in-swift/
+    func sorted<T: Comparable>(by keyPath: KeyPath<Element, T>) -> [Element] {
+        sorted { a, b in
+            return a[keyPath: keyPath] < b[keyPath: keyPath]
+        }
+    }
+}
