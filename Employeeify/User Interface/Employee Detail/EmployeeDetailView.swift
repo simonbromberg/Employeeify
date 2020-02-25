@@ -77,10 +77,12 @@ class ImageLoader: ObservableObject {
     }
 }
 
+#if DEBUG
 struct EmployeeDetailView_Previews: PreviewProvider {
     static var previews: some View {
         let view = EmployeeDetailView(employee: employeesPreviewData[0])
-        view.imageLoader.image = Image( "sample_image")
+        view.imageLoader.image = Image("sample_image")
         return view
     }
 }
+#endif

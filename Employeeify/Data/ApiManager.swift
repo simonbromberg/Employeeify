@@ -8,49 +8,6 @@
 
 import Foundation
 
-enum DataProviderError: Error {
-    case invalidBaseURL
-    case noData(Error?)
-    case decodingFailure(Error?)
-}
-
-/// Test data for SwifUI previews
-let employeesPreviewData: [Employee] = {
-    guard let url = Bundle.main.url(forResource: "employees", withExtension: "json") else {
-        return []
-    }
-
-    let data = try? Data(contentsOf: url)
-    return DataProvider.shared.parseEmployeeData(data, error: nil).employees ?? []
-}() // FIXME: where do you put this?
-
-struct DataProvider {
-    static var shared: EmployeeDataProvider = ApiManager()
-}
-
-protocol EmployeeDataProvider {
-    func getEmployees(_ completion: @escaping (_ employees: [Employee]?, _ error: DataProviderError?) -> Void)
-
-    func getImageData(with url: URL, completion: @escaping (_ image: Data?, _ error: DataProviderError?) -> Void)
-}
-
-extension EmployeeDataProvider {
-    typealias EmployeeParseResult = (employees: [Employee]?, error: DataProviderError?)
-
-    func parseEmployeeData(_ data: Data?, error: Error?) -> EmployeeParseResult {
-        guard let data = data else {
-            return (nil, .noData(error))
-        }
-
-        do {
-            let results = try JSONDecoder().decode(EmployeeResult.self, from: data)
-            return (results.employees, nil)
-        } catch {
-            return (nil, .decodingFailure(error))
-        }
-    }
-}
-
 class ApiManager: EmployeeDataProvider {
     struct Endpoint {
         static let employees = "employees.json"
