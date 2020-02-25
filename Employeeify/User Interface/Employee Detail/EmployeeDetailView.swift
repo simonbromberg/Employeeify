@@ -27,10 +27,7 @@ struct EmployeeDetailView: View {
                     .font(.subheadline)
                     .multilineTextAlignment(.leading)
 
-                CircleImage(
-                    image: imageLoader.image
-                        .resizable()
-                )
+                CircleImage(image: imageLoader.image.resizable())
                     .aspectRatio(contentMode: .fit)
                     .padding()
 
