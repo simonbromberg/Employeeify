@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D43DA8F42404D52400A2EDE2 /* MockApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43DA8F32404D52400A2EDE2 /* MockApiManager.swift */; };
+		D43DA8F62404DCA200A2EDE2 /* employees_malformed.json in Resources */ = {isa = PBXBuildFile; fileRef = D47DB60323FFA659001271FD /* employees_malformed.json */; };
+		D43DA8F72404DCA500A2EDE2 /* employees_empty.json in Resources */ = {isa = PBXBuildFile; fileRef = D47DB60623FFA67F001271FD /* employees_empty.json */; };
 		D47DB5D023FF9A2B001271FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47DB5CF23FF9A2B001271FD /* AppDelegate.swift */; };
 		D47DB5D223FF9A2B001271FD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47DB5D123FF9A2B001271FD /* SceneDelegate.swift */; };
 		D47DB5D423FF9A2B001271FD /* EmployeeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47DB5D323FF9A2B001271FD /* EmployeeListViewController.swift */; };
@@ -46,6 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D43DA8F32404D52400A2EDE2 /* MockApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MockApiManager.swift; path = Employeeify/MockApiManager.swift; sourceTree = SOURCE_ROOT; };
 		D47DB5CC23FF9A2B001271FD /* Employeeify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Employeeify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D47DB5CF23FF9A2B001271FD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D47DB5D123FF9A2B001271FD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -98,6 +102,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D43DA8F82404E02900A2EDE2 /* Test Data */ = {
+			isa = PBXGroup;
+			children = (
+				D47DB60523FFA67F001271FD /* employees.json */,
+				D47DB60623FFA67F001271FD /* employees_empty.json */,
+				D47DB60323FFA659001271FD /* employees_malformed.json */,
+			);
+			path = "Test Data";
+			sourceTree = "<group>";
+		};
 		D47DB5C323FF9A2A001271FD = {
 			isa = PBXGroup;
 			children = (
@@ -126,6 +140,7 @@
 				D47DB5D123FF9A2B001271FD /* SceneDelegate.swift */,
 				D498C84B24033ECC002CC886 /* User Interface */,
 				D47DB60123FF9D35001271FD /* ApiManager.swift */,
+				D43DA8F32404D52400A2EDE2 /* MockApiManager.swift */,
 				D498C84E24033F18002CC886 /* Model */,
 				D498C84C24033ED3002CC886 /* Caching */,
 				D498C84A24033EC2002CC886 /* Resources */,
@@ -139,7 +154,6 @@
 			isa = PBXGroup;
 			children = (
 				D47DB5E623FF9A2B001271FD /* EmployeeifyTests.swift */,
-				D47DB60923FFA683001271FD /* Test Data */,
 				D47DB5E823FF9A2B001271FD /* Info.plist */,
 			);
 			path = EmployeeifyTests;
@@ -154,15 +168,6 @@
 			path = EmployeeifyUITests;
 			sourceTree = "<group>";
 		};
-		D47DB60923FFA683001271FD /* Test Data */ = {
-			isa = PBXGroup;
-			children = (
-				D47DB60623FFA67F001271FD /* employees_empty.json */,
-				D47DB60323FFA659001271FD /* employees_malformed.json */,
-			);
-			path = "Test Data";
-			sourceTree = "<group>";
-		};
 		D47DB61724025E5F001271FD /* Employee Detail */ = {
 			isa = PBXGroup;
 			children = (
@@ -175,7 +180,7 @@
 		D498C84A24033EC2002CC886 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D47DB60523FFA67F001271FD /* employees.json */,
+				D43DA8F82404E02900A2EDE2 /* Test Data */,
 				D47DB5D823FF9A2B001271FD /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -322,9 +327,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D47DB5DC23FF9A2B001271FD /* LaunchScreen.storyboard in Resources */,
+				D43DA8F62404DCA200A2EDE2 /* employees_malformed.json in Resources */,
 				D498C84824030E7C002CC886 /* employees.json in Resources */,
 				D47DB5D923FF9A2B001271FD /* Assets.xcassets in Resources */,
 				D47DB5D723FF9A2B001271FD /* Main.storyboard in Resources */,
+				D43DA8F72404DCA500A2EDE2 /* employees_empty.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,6 +361,7 @@
 			files = (
 				D47DB5D423FF9A2B001271FD /* EmployeeListViewController.swift in Sources */,
 				D47DB60023FF9AA1001271FD /* Employee.swift in Sources */,
+				D43DA8F42404D52400A2EDE2 /* MockApiManager.swift in Sources */,
 				D47DB611240255C2001271FD /* Cache.swift in Sources */,
 				D47DB61424025B6A001271FD /* EmployeeDetailView.swift in Sources */,
 				D47DB60223FF9D35001271FD /* ApiManager.swift in Sources */,

@@ -9,35 +9,66 @@
 import XCTest
 
 class EmployeeifyUITests: XCTestCase {
-
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-
-        // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
     }
 
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() {
-        // UI tests must launch the application that they test.
-        let app = XCUIApplication()
+    func testLoadNormal() {
+        let app = getApp()
         app.launch()
 
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let name = app.tables.cells.element(boundBy: 0).staticTexts["Alaina Daly"]
+        XCTAssertTrue(name.waitForExistence(timeout: 5), "Incorrect employee in 1st row")
+
+        let team = app.tables.cells.element(boundBy: 3).staticTexts["Core"]
+        XCTAssertTrue(team.exists, "Incorrect team in 4th row")
     }
 
-    func testLaunchPerformance() {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTOSSignpostMetric.applicationLaunch]) {
-                XCUIApplication().launch()
-            }
-        }
+    func testSort() {
+        let app = getApp()
+        app.launch()
+
+        app.navigationBars["Employees"].buttons["Sort"].tap()
+        app.sheets["Sort"].scrollViews.otherElements.buttons["By Team"].tap()
+
+        let name = app.tables.cells.element(boundBy: 0).staticTexts["Kaitlyn Spindel"]
+        XCTAssertTrue(name.waitForExistence(timeout: 5), "Incorrect employee in 1st row when sorting by team")
+    }
+
+    func testLoadMalformed() {
+        let app = getApp()
+        app.launchArguments.append("-malformed_data")
+        app.launch()
+
+        let header = app.staticTexts["Error Loading!"]
+        XCTAssertTrue(header.waitForExistence(timeout: 5), "Missing error header")
+        XCTAssertEqual(app.tables.cells.count, 0, "App should not load any data when json is bad")
+    }
+
+    func testLoadEmpty() {
+        let app = getApp()
+        app.launchArguments.append("-empty_data")
+        app.launch()
+
+        let header = app.staticTexts["No Employees!"]
+        XCTAssertTrue(header.waitForExistence(timeout: 5), "Missing error header")
+        XCTAssertEqual(app.tables.cells.count, 0, "App should not load any data when json is empty")
+    }
+
+//    func testLaunchPerformance() {
+//        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
+//            measure(metrics: [XCTOSSignpostMetric.applicationLaunch]) {
+//                XCUIApplication().launch()
+//            }
+//        }
+//    }
+
+    // MARK: - Helper
+
+    /// Used to enforce universal launch arguments
+    func getApp() -> XCUIApplication {
+        let app = XCUIApplication()
+        app.launchArguments = ["-running_tests"]
+        return app
     }
 }

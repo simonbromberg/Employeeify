@@ -12,7 +12,15 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+
+        if isRunningTests {
+            let mockApiManager = MockApiManager()
+            mockApiManager.employeeData = employeeDataForCommandLineArguments()
+            mockApiManager.imageData = UIImage(named: "sample_image")?.jpegData(compressionQuality: 1)
+            
+            DataProvider.shared = mockApiManager
+        }
+
         return true
     }
 
@@ -30,6 +38,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
+    // MARK: - Tests
 
+    /// Check environment variables for testing flag
+    var isRunningTests: Bool {
+        return CommandLine.arguments.contains("-running_tests") 
+    }
+
+    /// Modify mock api for bad data
+    func employeeDataForCommandLineArguments() -> Data? {
+        var resourceName: String?
+        if CommandLine.arguments.contains("-malformed_data") {
+            resourceName = "employees_malformed"
+        } else if CommandLine.arguments.contains("-empty_data") {
+            resourceName = "employees_empty"
+        } else {
+            resourceName = "employees"
+        }
+
+        if let name = resourceName,
+            let url = Bundle.main.url(forResource: name, withExtension: "json") {
+            return try? Data(contentsOf: url)
+        }
+
+        return nil
+    }
 }
 

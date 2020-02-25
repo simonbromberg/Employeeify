@@ -28,7 +28,7 @@ class EmployeeListViewController: UIViewController, UITableViewDelegate {
         super.viewDidLoad()
 
         setUpTableView()
-        getEmployees()
+        getEmployees()        
     }
 
     private func setUpTableView() {
