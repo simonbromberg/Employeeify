@@ -13,7 +13,7 @@ class EmployeeListViewController: UIViewController, UITableViewDelegate {
     private var employees = [Employee]()
 
     @IBOutlet var tableView: UITableView!
-    @IBOutlet var errorLabel: UILabel!
+    @IBOutlet var messageLabel: UILabel!
 
     private var dataSource: UITableViewDiffableDataSource<Section, Employee>!
 
@@ -47,6 +47,9 @@ class EmployeeListViewController: UIViewController, UITableViewDelegate {
     }
 
     private func getEmployees(_ completion: (() -> Void)? = nil) {
+        messageLabel.text = NSLocalizedString("Loading…", comment: "Employee list loading message")
+        messageLabel.isHidden = false
+
         DataProvider.shared.getEmployees { [weak self] (employees, error) in
             guard let strongSelf = self else { return }
 
@@ -60,8 +63,8 @@ class EmployeeListViewController: UIViewController, UITableViewDelegate {
                     errorMessage = error == nil ? NSLocalizedString("No Employees!", comment: "Employee list, empty data message") : NSLocalizedString("Error Loading!", comment: "Employee list, error message")
                 }
 
-                strongSelf.errorLabel.text = errorMessage
-                strongSelf.errorLabel.isHidden = errorMessage == nil
+                strongSelf.messageLabel.text = errorMessage
+                strongSelf.messageLabel.isHidden = errorMessage == nil
 
                 completion?()
             }

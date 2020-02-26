@@ -22,8 +22,8 @@
                                     <rect key="frame" x="0.0" y="131" width="414" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gXi-V3-BnA">
-                                            <rect key="frame" x="165" y="11.5" width="84" height="21"/>
+                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gXi-V3-BnA">
+                                            <rect key="frame" x="149.5" y="11.5" width="115" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -103,7 +103,7 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="errorLabel" destination="gXi-V3-BnA" id="Bph-Mm-DXI"/>
+                        <outlet property="messageLabel" destination="gXi-V3-BnA" id="Bt6-ET-DeK"/>
                         <outlet property="tableView" destination="Msy-An-AdT" id="X29-8f-xxM"/>
                     </connections>
                 </viewController>

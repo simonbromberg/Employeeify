@@ -29,7 +29,7 @@ class ApiManager: EmployeeDataProvider {
 
         url.appendPathComponent(Endpoint.employees)
 
-        // Cancel any previously running tasks
+        // Cancel any previously running tasks (because of simplicity of app, we know that only one employee list download should be happening at a time)
         dataTask?.cancel()
 
         let request = URLRequest(url: url)
