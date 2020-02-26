@@ -11,7 +11,7 @@
  Beyond getting the basic functionality down, I used this as an opportunity to experiment a bit with modularizing the network calls so they can be swapped out easily (i.e. for unit and UI tests). I also took this as an chance to play around a bit more with SwiftUI for the `EmployeeDetailView`, since that was not an explicit requirement of the assignment, but the app felt incomplete without it. I distributed my time fairly evenly across building the interface, setting up the backend, and the testing framework.  
  
  ## Devices
- The app was primarily designed for the iPhone, but I have also ensured it works well on the iPad. It also works in both Portrait and Landscape orientation, as well as both Light and Dark Mode. With a bit more work the main list could support accessibility text sizes, but the detail view does a decent job. 
+ The app was primarily designed for the iPhone, but I have also ensured it works well on the iPad. It works best on iPhone 6 and up, as the text is a bit squished on smaller devices. It also works in both Portrait and Landscape orientation, as well as both Light and Dark Mode. With a bit more work the main list could support accessibility text sizes, but the detail view does a decent job.
 
 ## Copied-in Code
 Only copied in a very simple SwiftUI view called `CircleImage` from Apple's SwiftUI tutorials. Otherwise, aimed to keep the project as simple as possible using only built-in APIs and the SDK. Components like the JSON decoding and diffable table view data source were not directly copied in but were straightforward as I had other personal projects using a similar setup. 
