@@ -111,7 +111,9 @@ class EmployeeListViewController: UIViewController, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        let detailView = EmployeeDetailView(employee: employees[indexPath.row])
+        var detailView = EmployeeDetailView(employee: employees[indexPath.row])
+        detailView.delegate = self
+
         let vc = UIHostingController(rootView: detailView)
 
         present(vc, animated: true, completion: nil)
@@ -129,10 +131,7 @@ class EmployeeListViewController: UIViewController, UITableViewDelegate {
     /// Maximum number of  images to cache before evicting earlier items to constrain the amount of space used
     static let maxImages = 512
 
-    typealias ImageCache = Cache<String, UIImage>
-    private lazy var imageCache: ImageCache = {
-        return ImageCache(dateProvider: Date.init, entryLifetime: Self.imageLifetime, maximumEntryCount: Self.maxImages)
-    }()
+    private var imageCache = ImageCache()
 
     @objc private func didPullToRefresh() {
         getEmployees { [weak self] in
@@ -187,6 +186,12 @@ class EmployeeListViewController: UIViewController, UITableViewDelegate {
         case .team:
             return \.team
         }
+    }
+}
+
+extension EmployeeListViewController: EmployeeDetailViewDelegate {
+    func didTapDone() {
+        dismiss(animated: true)
     }
 }
 

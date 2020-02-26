@@ -8,9 +8,16 @@
 
 import SwiftUI
 
+protocol EmployeeDetailViewDelegate: class {
+    /// apparent SwiftUI limitation with UIHostingController, simple workaround to pass responsibility of dismissal using button to presenter
+    func didTapDone()
+}
+
 struct EmployeeDetailView: View {
     var employee: Employee
     @ObservedObject var imageLoader: ImageLoader
+
+    weak var delegate: EmployeeDetailViewDelegate?
 
     init(employee: Employee) {
         self.employee = employee
@@ -53,6 +60,11 @@ struct EmployeeDetailView: View {
                     .padding()
             }
             .navigationBarTitle(employee.fullName)
+            .navigationBarItems(trailing:
+                Button("Done") {
+                    self.delegate?.didTapDone()
+                }
+            )
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
