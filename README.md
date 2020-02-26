@@ -14,7 +14,9 @@
  The app was primarily designed for the iPhone, but I have also ensured it works well on the iPad. It also works in both Portrait and Landscape orientation, as well as both Light and Dark Mode. With a bit more work the main list could support accessibility text sizes, but the detail view does a decent job. 
 
 ## Copied-in Code
-Only copied in a very simple SwiftUI view called `CircleImage` from Apple's SwiftUI tutorials. Otherwise, aimed to keep the project as simple as possible using only built-in APIs and the SDK. Components like the JSON decoding and diffable table view data source were not directly copied in but were straightforward as I had other personal projects using a similar setup.
+Only copied in a very simple SwiftUI view called `CircleImage` from Apple's SwiftUI tutorials. Otherwise, aimed to keep the project as simple as possible using only built-in APIs and the SDK. Components like the JSON decoding and diffable table view data source were not directly copied in but were straightforward as I had other personal projects using a similar setup. 
+
+The app icon image is from [Icons8](https://icons8.com/icon/pack/characters/ios).
 
 ## Time Spent
 The core work for the assignment took about 3 hours. I spent another few hours making the `DataProvider` architecture more testable, and experimenting with SwiftUI to build the detail view. I also added in the list sorting button to experiment with `KeyPath`.
