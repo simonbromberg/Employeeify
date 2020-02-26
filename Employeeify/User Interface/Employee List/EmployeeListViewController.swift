@@ -34,15 +34,22 @@ class EmployeeListViewController: UIViewController, UITableViewDelegate {
     private func setUpTableView() {
         let diffableDataSource = UITableViewDiffableDataSource<Section, Employee>(tableView: tableView, cellProvider: { [weak self] (tableView, indexPath, employee) in
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! EmployeeCell
+
+            cell.id = employee.uuid
             cell.nameLabel.text = employee.fullName
             cell.teamLabel.text = employee.team
 
             if let urlString = employee.photoURLSmall {
-                self?.getImage(for: urlString, completion: { image in
-                    if tableView.indexPathsForVisibleRows?.contains(indexPath) == true {
-                        cell.profileImageView.image = image
-                    }
-                })
+                if let image = self?.imageCache[urlString] {
+                    cell.profileImageView.image = image
+                } else {
+                    self?.loadImage(for: urlString, completion: { image in
+                         // ensure cell is still pointing to the same employee (instead of being reused)
+                        if cell.id == employee.uuid {
+                            cell.profileImageView.image = image
+                        }
+                    })
+                }
             }
 
             return cell
@@ -100,12 +107,8 @@ class EmployeeListViewController: UIViewController, UITableViewDelegate {
 //        }
 //    }
 
-    private func getImage(for urlString: String, completion: @escaping (_ image: UIImage?) -> Void) {
-        if let image = imageCache[urlString] {
-            return completion(image)
-        }
-
-        // Image not stored in local memory cache
+    /// Image not stored in local memory cache
+    private func loadImage(for urlString: String, completion: @escaping (_ image: UIImage?) -> Void) {
         if let url = URL(string: urlString) {
             DataProvider.shared.getImageData(with: url) { (imageData, error) in
                 DispatchQueue.main.async {

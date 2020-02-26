@@ -13,6 +13,8 @@ class EmployeeCell: UITableViewCell {
     @IBOutlet var teamLabel: UILabel!
     @IBOutlet var profileImageView: UIImageView!
 
+    var id: String?
+
     override func awakeFromNib() {
         super.awakeFromNib()
 
@@ -30,6 +32,7 @@ class EmployeeCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
 
+        id = nil
         profileImageView.image = UIImage(systemName: "person")
     }
 }
