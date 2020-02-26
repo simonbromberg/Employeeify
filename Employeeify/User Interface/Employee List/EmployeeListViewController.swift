@@ -32,10 +32,19 @@ class EmployeeListViewController: UIViewController, UITableViewDelegate {
     }
 
     private func setUpTableView() {
-        let diffableDataSource = UITableViewDiffableDataSource<Section, Employee>(tableView: tableView, cellProvider: { (tableView, indexPath, employee) in
+        let diffableDataSource = UITableViewDiffableDataSource<Section, Employee>(tableView: tableView, cellProvider: { [weak self] (tableView, indexPath, employee) in
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! EmployeeCell
             cell.nameLabel.text = employee.fullName
             cell.teamLabel.text = employee.team
+
+            if let urlString = employee.photoURLSmall {
+                self?.getImage(for: urlString, completion: { image in
+                    if tableView.indexPathsForVisibleRows?.contains(indexPath) == true {
+                        cell.profileImageView.image = image
+                    }
+                })
+            }
+
             return cell
         })
         diffableDataSource.defaultRowAnimation = .top
@@ -80,17 +89,16 @@ class EmployeeListViewController: UIViewController, UITableViewDelegate {
 
     // MARK: - UITableViewDelegate
 
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let employee = employees[indexPath.row]
-        if let urlString = employee.photoURLSmall {
-            getImage(for: urlString) { image in
-                if let image = image,
-                    indexPath == tableView.indexPath(for: cell) {
-                    (cell as? EmployeeCell)?.profileImageView.image = image
-                }
-            }
-        }
-    }
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        let employee = employees[indexPath.row]
+//        if let urlString = employee.photoURLSmall {
+//            getImage(for: urlString) { image in
+//                if let image = image {
+//                    (cell as? EmployeeCell)?.profileImageView.image = image
+//                }
+//            }
+//        }
+//    }
 
     private func getImage(for urlString: String, completion: @escaping (_ image: UIImage?) -> Void) {
         if let image = imageCache[urlString] {

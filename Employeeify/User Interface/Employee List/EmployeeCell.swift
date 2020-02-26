@@ -26,5 +26,11 @@ class EmployeeCell: UITableViewCell {
 
         profileImageView.layer.borderColor = UIColor.label.cgColor
     }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        profileImageView.image = UIImage(systemName: "person")
+    }
 }
 
