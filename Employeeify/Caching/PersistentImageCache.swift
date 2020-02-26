@@ -15,6 +15,10 @@ class PersistentImageCache {
     func getImageData(forRemoteURL url: URL) -> Data? {
         let fileURL = fileURLForRemoteURL(url)
 
+        guard FileManager.default.fileExists(atPath: fileURL.path) else {
+            return nil
+        }
+        
         do {
             return try Data(contentsOf: fileURL)
         } catch {
