@@ -55,8 +55,8 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Team" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Hwk-vG-1gq" userLabel="Team Label">
-                                                    <rect key="frame" x="350.5" y="27" width="43.5" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Team" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Hwk-vG-1gq" userLabel="Team Label">
+                                                    <rect key="frame" x="350.5" y="27.5" width="43.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -71,6 +71,7 @@
                                                 <constraint firstItem="hVt-pL-wDP" firstAttribute="centerY" secondItem="NJK-WQ-FMf" secondAttribute="centerY" id="cUf-Rh-DVv"/>
                                                 <constraint firstAttribute="trailing" secondItem="Hwk-vG-1gq" secondAttribute="trailing" constant="20" id="cXO-R0-ZqE"/>
                                                 <constraint firstItem="Hwk-vG-1gq" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="4qy-Mg-nRq" secondAttribute="trailing" constant="5" id="oEn-ni-k3X"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Hwk-vG-1gq" secondAttribute="bottom" constant="20" symbolic="YES" id="qXb-X2-517"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
