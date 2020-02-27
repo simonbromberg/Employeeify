@@ -14,12 +14,12 @@ protocol EmployeeDetailViewDelegate: class {
 }
 
 struct EmployeeDetailView: View {
-    var employee: Employee
+    var employee: EmployeeViewModel
     @ObservedObject var imageLoader: ImageLoader
 
     weak var delegate: EmployeeDetailViewDelegate?
 
-    init(employee: Employee) {
+    init(employee: EmployeeViewModel) {
         self.employee = employee
         imageLoader = ImageLoader(urlString: employee.photoURLLarge)
     }

@@ -10,12 +10,12 @@ import UIKit
 import SwiftUI
 
 class EmployeeListViewController: UIViewController, UITableViewDelegate {
-    private var employees = [Employee]()
+    private var employees = [EmployeeViewModel]()
 
     @IBOutlet var tableView: UITableView!
     @IBOutlet var messageLabel: UILabel!
 
-    private var dataSource: UITableViewDiffableDataSource<Section, Employee>!
+    private var dataSource: UITableViewDiffableDataSource<Section, EmployeeViewModel>!
 
     private let refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -32,7 +32,7 @@ class EmployeeListViewController: UIViewController, UITableViewDelegate {
     }
 
     private func setUpTableView() {
-        let diffableDataSource = UITableViewDiffableDataSource<Section, Employee>(tableView: tableView, cellProvider: { [weak self] (tableView, indexPath, employee) in
+        let diffableDataSource = UITableViewDiffableDataSource<Section, EmployeeViewModel>(tableView: tableView, cellProvider: { [weak self] (tableView, indexPath, employee) in
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! EmployeeCell
 
             cell.id = employee.uuid
@@ -44,10 +44,8 @@ class EmployeeListViewController: UIViewController, UITableViewDelegate {
                     cell.profileImageView.image = image
                 } else {
                     self?.loadImage(for: urlString, completion: { image in
-                         // ensure cell is still pointing to the same employee (instead of being reused)
-                        if cell.id == employee.uuid {
-                            cell.profileImageView.image = image
-                        }
+                        self?.employees[indexPath.row].imageHash = image.hashValue
+                        self?.reloadTableViewData(animated: false)
                     })
                 }
             }
@@ -69,7 +67,8 @@ class EmployeeListViewController: UIViewController, UITableViewDelegate {
         DataProvider.shared.getEmployees { [weak self] (employees, error) in
             guard let strongSelf = self else { return }
 
-            strongSelf.employees = (employees ?? []).sorted(by: strongSelf.activeSortingKeyPath)
+            let employeeViewModels = employees?.map({ EmployeeViewModel(with: $0) })
+            strongSelf.employees = (employeeViewModels ?? []).sorted(by: strongSelf.activeSortingKeyPath)
             
             DispatchQueue.main.async {
                 strongSelf.reloadTableViewData()
@@ -87,25 +86,12 @@ class EmployeeListViewController: UIViewController, UITableViewDelegate {
         }
     }
 
-    private func reloadTableViewData() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Employee>()
+    private func reloadTableViewData(animated: Bool = true) {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, EmployeeViewModel>()
         snapshot.appendSections([Section.employees])
         snapshot.appendItems(employees)
-        dataSource.apply(snapshot, animatingDifferences: true)
+        dataSource.apply(snapshot, animatingDifferences: animated)
      }
-
-    // MARK: - UITableViewDelegate
-
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        let employee = employees[indexPath.row]
-//        if let urlString = employee.photoURLSmall {
-//            getImage(for: urlString) { image in
-//                if let image = image {
-//                    (cell as? EmployeeCell)?.profileImageView.image = image
-//                }
-//            }
-//        }
-//    }
 
     /// Image not stored in local memory cache
     private func loadImage(for urlString: String, completion: @escaping (_ image: UIImage?) -> Void) {
@@ -121,6 +107,8 @@ class EmployeeListViewController: UIViewController, UITableViewDelegate {
             }
         }
     }
+
+    // MARK: - UITableViewDelegate
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -193,7 +181,7 @@ class EmployeeListViewController: UIViewController, UITableViewDelegate {
 
     private var activeSortingOption = SortingOption.fullName
 
-    private var activeSortingKeyPath: KeyPath<Employee, String> {
+    private var activeSortingKeyPath: KeyPath<EmployeeViewModel, String> {
         switch activeSortingOption {
         case .fullName:
             return \.fullName

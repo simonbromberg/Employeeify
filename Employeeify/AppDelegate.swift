@@ -67,12 +67,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 #if DEBUG
 /// Test data for SwifUI previews
-let employeesPreviewData: [Employee] = {
+let employeesPreviewData: [EmployeeViewModel] = {
     guard let url = Bundle.main.url(forResource: "employees", withExtension: "json") else {
         return []
     }
 
     let data = try? Data(contentsOf: url)
-    return DataProvider.shared.parseEmployeeData(data, error: nil).employees ?? []
+    let employees = DataProvider.shared.parseEmployeeData(data, error: nil).employees ?? []
+
+    return employees.map({ EmployeeViewModel(with: $0) })
 }()
 #endif
