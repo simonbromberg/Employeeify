@@ -27,7 +27,7 @@
 		D47DB60823FFA67F001271FD /* employees_empty.json in Resources */ = {isa = PBXBuildFile; fileRef = D47DB60623FFA67F001271FD /* employees_empty.json */; };
 		D47DB60B24023FC8001271FD /* EmployeeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47DB60A24023FC8001271FD /* EmployeeCell.swift */; };
 		D47DB60D24025355001271FD /* PersistentImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47DB60C24025355001271FD /* PersistentImageCache.swift */; };
-		D47DB611240255C2001271FD /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47DB610240255C2001271FD /* Cache.swift */; };
+		D47DB611240255C2001271FD /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47DB610240255C2001271FD /* ImageCache.swift */; };
 		D47DB61424025B6A001271FD /* EmployeeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47DB61324025B6A001271FD /* EmployeeDetailView.swift */; };
 		D47DB61624025E55001271FD /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47DB61524025E55001271FD /* CircleImage.swift */; };
 		D498C84824030E7C002CC886 /* employees.json in Resources */ = {isa = PBXBuildFile; fileRef = D47DB60523FFA67F001271FD /* employees.json */; };
@@ -75,7 +75,7 @@
 		D47DB60623FFA67F001271FD /* employees_empty.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = employees_empty.json; sourceTree = "<group>"; };
 		D47DB60A24023FC8001271FD /* EmployeeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeCell.swift; sourceTree = "<group>"; };
 		D47DB60C24025355001271FD /* PersistentImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentImageCache.swift; sourceTree = "<group>"; };
-		D47DB610240255C2001271FD /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
+		D47DB610240255C2001271FD /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		D47DB61324025B6A001271FD /* EmployeeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeDetailView.swift; sourceTree = "<group>"; };
 		D47DB61524025E55001271FD /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
 		D498C84924033E0D002CC886 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -213,7 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				D47DB60C24025355001271FD /* PersistentImageCache.swift */,
-				D47DB610240255C2001271FD /* Cache.swift */,
+				D47DB610240255C2001271FD /* ImageCache.swift */,
 			);
 			path = Caching;
 			sourceTree = "<group>";
@@ -376,7 +376,7 @@
 				D47DB5D423FF9A2B001271FD /* EmployeeListViewController.swift in Sources */,
 				D47DB60023FF9AA1001271FD /* Employee.swift in Sources */,
 				D43DA8F42404D52400A2EDE2 /* MockApiManager.swift in Sources */,
-				D47DB611240255C2001271FD /* Cache.swift in Sources */,
+				D47DB611240255C2001271FD /* ImageCache.swift in Sources */,
 				D47DB61424025B6A001271FD /* EmployeeDetailView.swift in Sources */,
 				D43BFE0124078FA2004E7A5C /* EmployeeViewModel.swift in Sources */,
 				D47DB60223FF9D35001271FD /* ApiManager.swift in Sources */,

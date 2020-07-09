@@ -1,5 +1,5 @@
 //
-//  Cache.swift
+//  ImageCache.swift
 //  Created by Simon Bromberg on 2020-02-20.
 //  Copyright © 2020 SBromberg. All rights reserved.
 //
